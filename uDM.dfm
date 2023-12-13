@@ -1,7 +1,7 @@
 object DM: TDM
   OldCreateOrder = False
-  Left = 343
-  Top = 786
+  Left = 1283
+  Top = 800
   Height = 240
   Width = 274
   object SQLConn: TSQLConnection
@@ -12,7 +12,7 @@ object DM: TDM
     LoginPrompt = False
     Params.Strings = (
       'DriverName=Interbase'
-      'Database=C:\To-do List\DB.fdb'
+      'Database=C:\ToDoList\DB.fdb'
       'RoleName=RoleName'
       'User_Name=SYSDBA'
       'Password=masterkey'
@@ -25,8 +25,8 @@ object DM: TDM
       'WaitOnLocks=True'
       'Interbase TransIsolation=ReadCommited'
       'Trim Char=False')
+    TableScope = [tsSysTable, tsTable, tsView]
     VendorLib = 'gds32.dll'
-    Connected = True
     Left = 32
     Top = 8
   end
@@ -58,6 +58,10 @@ object DM: TDM
     Aggregates = <>
     Params = <>
     ProviderName = 'dspListas'
+    BeforePost = cdsListasBeforePost
+    AfterPost = cdsListasAfterPost
+    BeforeDelete = cdsListasBeforeDelete
+    OnNewRecord = cdsListasNewRecord
     Left = 144
     Top = 56
     object cdsListasID_LISTA: TFMTBCDField
@@ -89,13 +93,19 @@ object DM: TDM
   object qryTarefas: TSQLQuery
     DataSource = dtsRelac
     MaxBlobSize = -1
-    Params = <>
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_LISTA'
+        ParamType = ptInput
+      end>
     SQL.Strings = (
       'select'
       
         '    T.ID_LISTA, T.ID_TAREFA, T.TITULO, T.DESCRICAO, T.CONCLUIDA_' +
         'EM'
-      'from TAREFAS T')
+      'from TAREFAS T'
+      'where T.ID_LISTA=:ID_LISTA')
     SQLConnection = SQLConn
     Left = 32
     Top = 120
@@ -129,9 +139,19 @@ object DM: TDM
   end
   object cdsTarefas: TClientDataSet
     Active = True
-    Aggregates = <>
+    Aggregates = <
+      item
+        Active = True
+        Expression = 'max(ID_TAREFA)'
+        IndexName = 'ind'
+        Visible = False
+      end>
+    AggregatesActive = True
     DataSetField = cdsListasqryTarefas
     Params = <>
+    BeforePost = cdsTarefasBeforePost
+    AfterPost = cdsTarefasAfterPost
+    OnNewRecord = cdsTarefasNewRecord
     Left = 144
     Top = 120
     object cdsTarefasID_LISTA: TFMTBCDField
@@ -168,6 +188,11 @@ object DM: TDM
     object cdsTarefasCONCLUIDA_EM: TDateField
       DisplayLabel = 'Conclu'#237'da Em'
       FieldName = 'CONCLUIDA_EM'
+    end
+    object cdsTarefasMAX_ID_TAREFA: TAggregateField
+      FieldName = 'MAX_ID_TAREFA'
+      Active = True
+      Expression = 'MAX(ID_TAREFA)'
     end
   end
   object dspTarefas: TDataSetProvider

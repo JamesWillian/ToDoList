@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, DB, Grids, DBGrids, ExtCtrls, DBCtrls;
+  Dialogs, StdCtrls, DB, Grids, DBGrids, ExtCtrls, DBCtrls, Buttons;
 
 type
   TfrmPrincipal = class(TForm)
@@ -15,8 +15,15 @@ type
     pnFundo: TPanel;
     pnListas: TPanel;
     pnTarefas: TPanel;
-    DBNavigator1: TDBNavigator;
-    DBNavigator2: TDBNavigator;
+    Panel1: TPanel;
+    btnIncluirLista: TSpeedButton;
+    btnAlterarLista: TSpeedButton;
+    btnExcluirLista: TSpeedButton;
+    btnSalvarLista: TSpeedButton;
+    procedure btnIncluirListaClick(Sender: TObject);
+    procedure btnAlterarListaClick(Sender: TObject);
+    procedure btnSalvarListaClick(Sender: TObject);
+    procedure btnExcluirListaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,5 +39,25 @@ implementation
 
 uses
   uDM;
+
+procedure TfrmPrincipal.btnIncluirListaClick(Sender: TObject);
+begin
+  dtsListas.DataSet.Append;
+end;
+
+procedure TfrmPrincipal.btnAlterarListaClick(Sender: TObject);
+begin
+  dtsListas.DataSet.Edit;
+end;
+
+procedure TfrmPrincipal.btnSalvarListaClick(Sender: TObject);
+begin
+  dtsListas.DataSet.Post;
+end;
+
+procedure TfrmPrincipal.btnExcluirListaClick(Sender: TObject);
+begin
+  dtsListas.DataSet.Delete;
+end;
 
 end.

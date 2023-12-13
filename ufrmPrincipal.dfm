@@ -1,6 +1,6 @@
 object frmPrincipal: TfrmPrincipal
-  Left = 603
-  Top = 351
+  Left = 631
+  Top = 125
   Width = 1305
   Height = 675
   VertScrollBar.Smooth = True
@@ -33,7 +33,7 @@ object frmPrincipal: TfrmPrincipal
         Left = 1
         Top = 1
         Width = 310
-        Height = 607
+        Height = 575
         Align = alClient
         DataSource = dtsListas
         TabOrder = 0
@@ -43,15 +43,45 @@ object frmPrincipal: TfrmPrincipal
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
       end
-      object DBNavigator1: TDBNavigator
+      object Panel1: TPanel
         Left = 1
-        Top = 608
+        Top = 576
         Width = 310
-        Height = 25
-        DataSource = dtsListas
-        VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+        Height = 57
         Align = alBottom
         TabOrder = 1
+        object btnIncluirLista: TSpeedButton
+          Left = 7
+          Top = 7
+          Width = 66
+          Height = 43
+          Caption = 'Incluir'
+          OnClick = btnIncluirListaClick
+        end
+        object btnAlterarLista: TSpeedButton
+          Left = 79
+          Top = 6
+          Width = 66
+          Height = 43
+          Caption = 'Alterar'
+          OnClick = btnAlterarListaClick
+        end
+        object btnExcluirLista: TSpeedButton
+          Left = 159
+          Top = 6
+          Width = 66
+          Height = 43
+          Caption = 'Excluir'
+          OnClick = btnExcluirListaClick
+        end
+        object btnSalvarLista: TSpeedButton
+          Left = 231
+          Top = 6
+          Width = 66
+          Height = 43
+          Caption = 'Salvar'
+          OnClick = btnSalvarListaClick
+        end
       end
     end
     object pnTarefas: TPanel
@@ -66,7 +96,7 @@ object frmPrincipal: TfrmPrincipal
         Left = 1
         Top = 1
         Width = 973
-        Height = 607
+        Height = 632
         Align = alClient
         DataSource = dtsTarefas
         TabOrder = 0
@@ -75,16 +105,6 @@ object frmPrincipal: TfrmPrincipal
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
-      end
-      object DBNavigator2: TDBNavigator
-        Left = 1
-        Top = 608
-        Width = 973
-        Height = 25
-        DataSource = dtsTarefas
-        VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
-        Align = alBottom
-        TabOrder = 1
       end
     end
   end
